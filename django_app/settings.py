@@ -32,16 +32,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'core',
-    'users', # This is our new app
-    'django_extensions', # This is the new extensions library
-]   
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "core",
+    "users",  # This is our new app
+    "django_extensions",  # This is the new extensions library
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -154,4 +154,8 @@ if DEBUG:
         "debug_toolbar.panels.redirects.RedirectsPanel",
         "debug_toolbar.panels.profiling.ProfilingPanel",
     ]
-    INTERNAL_IPS = ["127.0.0.1"]
+    INTERNAL_IPS = ["127.0.0.1"]  #
+
+LOGIN_URL = "users:sign-in"
+LOGIN_REDIRECT_URL = "core:home"
+LOGOUT_REDIRECT_URL = "core:home"
