@@ -7,7 +7,6 @@ from django.http import HttpResponseRedirect
 from .forms import UserForm, AuthForm, UserProfileForm, UserAlterationForm
 from .models import UserProfile
 
-
 class SignUpView(generic.FormView):
     """
     Basic user sign up page.
@@ -16,16 +15,14 @@ class SignUpView(generic.FormView):
 
     :template:`users/sign_up.html`
     """
-
     template_name = "users/sign_up.html"
     form_class = UserForm
-    success_url = "/account/"
+    success_url = '/account/'
 
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return HttpResponseRedirect(self.get_success_url())
-
 
 class SignInView(generic.FormView):
     """
@@ -35,10 +32,9 @@ class SignInView(generic.FormView):
 
     :template:`users/sign_in.html`
     """
-
     template_name = "users/sign_in.html"
     form_class = AuthForm
-    success_url = "/account/"
+    success_url = '/account/'
 
     def form_valid(self, form):
         login(self.request, form.get_user())
@@ -46,11 +42,11 @@ class SignInView(generic.FormView):
 
 
 def sign_out(request):
-    """
+	"""
     Basic user sign out page.
     """
-    logout(request)
-    return redirect(reverse("users:sign-in"))
+	logout(request)
+	return redirect(reverse('users:sign-in'))
 
 
 @login_required
@@ -63,17 +59,16 @@ def AccountView(request):
     :template:`users/account.html`
     """
     up = request.user.userprofile
-    up_form = UserProfileForm(instance=up)
-    context = {"form": up_form}
+    up_form = UserProfileForm(instance = up)
+    context = {'form': up_form}
 
     if request.method == "POST":
-        form = UserProfileForm(instance=up, data=request.POST)
+        form = UserProfileForm(instance = up, data = request.POST, files=request.FILES)
         if form.is_valid:
             form.save()
-            return redirect("/account/")
+            return redirect('/account/')
     else:
-        return render(request, "users/account.html", context)
-
+        return render(request, 'users/account.html', context)
 
 @login_required
 def UserInfoView(request):
@@ -85,13 +80,13 @@ def UserInfoView(request):
     :template:`users/info.html`
     """
     user = request.user
-    u_form = UserAlterationForm(instance=user)
-    context = {"form": u_form}
+    u_form = UserAlterationForm(instance = user)
+    context = {'form': u_form}
 
     if request.method == "POST":
-        form = UserAlterationForm(instance=user, data=request.POST)
+        form = UserAlterationForm(instance = user, data = request.POST)
         if form.is_valid:
             form.save()
-            return redirect("/user-info/")
+            return redirect('/user-info/')
     else:
-        return render(request, "users/info.html", context)
+        return render(request, 'users/info.html', context)

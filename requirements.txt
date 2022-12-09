@@ -9,6 +9,7 @@ flake8==6.0.0
 mccabe==0.7.0
 mypy-extensions==0.4.3
 pathspec==0.10.2
+Pillow==9.3.0
 platformdirs==2.6.0
 pycodestyle==2.10.0
 pycountry==22.3.5
